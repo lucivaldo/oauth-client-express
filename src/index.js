@@ -138,6 +138,7 @@ app.post('/signout', (req, res) => {
 app.get('/home', (req, res) => {
   if (!req.session.user) {
     res.redirect('/')
+    return
   }
 
   const user = JSON.parse(req.session.user)
