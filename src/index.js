@@ -1,8 +1,14 @@
 const express = require('express')
 const session = require('express-session')
+const morgan = require('morgan')
+
 
 const app = express()
 const port = process.env.PORT || 3000
+
+const logger = morgan('tiny')
+
+app.use(logger)
 
 app.use(session({
   resave: false,
