@@ -13,7 +13,7 @@ app.use(logger)
 app.use(session({
   resave: false,
   saveUninitialized: false,
-  secret: 'express-session-oauth',
+  secret: '505MamniUIhihrPhlNWsMpsONmmeHnfW',
   name: '_oauth_client_session',
 }))
 
