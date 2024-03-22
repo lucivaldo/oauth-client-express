@@ -6,7 +6,7 @@
 
 ## Configuração inicial
 
-Crie um arquivo chamado **.env** na raiz do projeto com as mesmas variáveis de ambiente do arquivo de exemplo **.env.development.local.example** com os valores corretos.
+Crie um arquivo chamado **.env** na raiz do projeto com as mesmas variáveis de ambiente do arquivo de exemplo **.env.example** com os valores corretos.
 
 ## Como executar a aplicação
 
