@@ -123,6 +123,12 @@ app.get('/auth/callback', async (req, res) => {
   res.redirect('/home')
 })
 
+app.post('/signout', (req, res) => {
+  req.session.destroy(() => {
+    res.redirect('/')
+  })
+})
+
 app.get('/home', (req, res) => {
   if (!req.session.user) {
     res.redirect('/')
@@ -152,6 +158,12 @@ app.get('/home', (req, res) => {
 
           <li>
             <a href="/home">/home</a>
+          </li>
+
+          <li>
+            <form method="post" action="/signout">
+              <button type="submit">Sair</button>
+            </form>
           </li>
         </ul>
 
