@@ -75,6 +75,8 @@ app.get('/auth/callback', async (req, res) => {
 
   const user = await fetchUser(data['access_token'])
 
+  // A partir deste momento, cria-se a sessão do usuário atualmente logado
+  // com as regras de negócio próprias da aplicação.
   req.session.user = JSON.stringify(user)
 
   res.json({
