@@ -34,14 +34,55 @@ async function fetchUser(accessToken) {
 }
 
 app.get('/', (req, res) => {
+  let user = null
+
+  if (req.session.user) {
+    user = JSON.parse(req.session.user)
+  }
+
+  const loginStatusMessage = user
+    ? `<p>Usuário: ${JSON.stringify(user)}</p>`
+    : `<p>Nenhum usuário logado!</p>`
+
+  const html = `
+    <!doctype html>
+    <html lang="pt-br">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>OAuth Client Express</title>
+      </head>
+      <body>
+        ${loginStatusMessage}
+
+        <ul>
+          <li>
+            <a href="/">/</a>
+          </li>
+
+          <li>
+            <a href="/signin">/signin</a>
+          </li>
+
+          <li>
+            <a href="/home">/home</a>
+          </li>
+        </ul>
+      </body>
+    </html>
+  `
+
+  res.send(html)
+})
+
+app.get('/signin', (req, res) => {
   if (!req.session.user) {
     const responseType = 'code'
     const url = `${providerUrl}/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}`
 
     res.redirect(url)
   } else {
-    const user = JSON.parse(req.session.user)
-    res.send(`Olá ${user['username']}`)
+    res.redirect('/home')
   }
 })
 
@@ -79,15 +120,47 @@ app.get('/auth/callback', async (req, res) => {
   // com as regras de negócio próprias da aplicação.
   req.session.user = JSON.stringify(user)
 
-  res.json({
-    accessToken: data['access_token'],
-    user,
-  })
+  res.redirect('/home')
 })
 
 app.get('/home', (req, res) => {
+  if (!req.session.user) {
+    res.redirect('/')
+  }
+
   const user = JSON.parse(req.session.user)
-  res.json(user)
+
+  const html = `
+    <!doctype html>
+    <html lang="pt-br">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bootstrap demo</title>
+      </head>
+      <body>
+        <h1>Home</h1>
+
+        <ul>
+          <li>
+            <a href="/">/</a>
+          </li>
+
+          <li>
+            <a href="/signin">/signin</a>
+          </li>
+
+          <li>
+            <a href="/home">/home</a>
+          </li>
+        </ul>
+
+        <pre>Usuário: ${JSON.stringify(user)}</pre>
+      </body>
+    </html>
+  `
+
+  res.send(html)
 })
 
 app.listen(port, () => {

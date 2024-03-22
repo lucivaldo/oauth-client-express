@@ -2,19 +2,20 @@
 
 ## Requisitos
 
-- Node (>=21.6.2)
+- Node (>=18.19.0)
 
 ## Configuração inicial
 
-Crie um arquivo chamado **.env.development.local** na raiz do projeto com as mesmas variáveis de ambiente do arquivo de exemplo **.env.development.local.example** com os valores corretos.
+Crie um arquivo chamado **.env** na raiz do projeto com as mesmas variáveis de ambiente do arquivo de exemplo **.env.development.local.example** com os valores corretos.
 
 ## Como executar a aplicação
 
-`npm run start`
+`npm run dev`
 
 ## Rotas
 
-- */*: Raiz da aplicação. Aqui inicia-se o processo de autenticação
+- */*: Raiz da aplicação.
+- */signin*: Rota para iniciar o processo de autenticação.
 
 Após realizar a autenticação com o provedor OAuth, pode-se consultar a seguinte rota:
 
